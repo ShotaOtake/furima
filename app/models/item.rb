@@ -36,7 +36,7 @@ class Item < ApplicationRecord
   # 数値であればデータベースに保存を許可して、それ以外では保存が許可されない
   # 選択関係で「---」のままになっていないか検証
   with_options presence: true,numericality: { other_than: 0 } do
-    validates :catgory_id
+    validates :category_id
     validates :sales_status_id
     validates :shipping_fee_status_id
     validates :prefecture_id
