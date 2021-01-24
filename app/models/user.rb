@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # モデル間のアソシエーション
+  has_many :items
+
           # <<バリデーション>>
   with_options presence: true do
     # with_options:1つの条件を複数のバリデーションで共用できるときに使用する
