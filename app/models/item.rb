@@ -16,9 +16,31 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :scheduled_delivery
 
-  
+  # <<バリデーション>> 
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :info
+    validates :price
+  end
 
-　# <<バリデーション>>
+  # 金額の範囲
+  validates_inclusion_of :price, in: 300..9999999
+  # ..:rubyの範囲オブジェクト　https://docs.ruby-lang.org/ja/latest/class/Range.html
 
+  # numericalityを使うのもあります！
+  # validates :price, numericality: { greater_than_or_equal_to: 300, 
+  #                                   less_than_or_equal_to: 9_999_999 }
+  # 
+
+  # 数値であればデータベースに保存を許可して、それ以外では保存が許可されない
+  # 選択関係で「---」のままになっていないか検証
+  with_options presence: true,numericality: { other_than: 0 } do
+    validates :catgory_id
+    validates :sales_status_id
+    validates :shipping_fee_status_id
+    validates :prefecture_id
+    validates :scheduled_delivery_id
+  end
 
 end
