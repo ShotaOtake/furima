@@ -21,7 +21,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  # showアクションにインスタンス変数@itemを定義
+  # 且つ、Pathパラメータで送信されるID値で、Itemモデルの特定のオブジェクトを取得するように記述し、それを@itemに代入
   def show
+    @item = Item.find(params[:id])
   end
   
 
