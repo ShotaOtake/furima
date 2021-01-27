@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   # モデル間のアソシエーション
   has_many :items
+  has_many :orders
 
           # <<バリデーション>>
   with_options presence: true do
