@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
 # 処理が呼ばれた段階で、ユーザーがログインしていなければ、そのユーザーをログイン画面に遷移させる
-before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy ]
 # コントローラで定義されたアクションが実行される前に、共通の処理を行う
-before_action :set_item, only:[ :show, :edit, :update ]
+before_action :set_item, only:[ :show, :edit, :update, :destroy ]
 # @itemと紐づくユーザーが一致していない場合はトップページへ
-before_action :move_to_index, only:[ :edit, :update ]
+before_action :move_to_index, only:[ :edit, :update, :destroy ]
 
   # indexアクション設定
   def index
@@ -45,6 +45,7 @@ before_action :move_to_index, only:[ :edit, :update ]
   def update
     # @item = Item.find(params[:id])
     if @item.valid?
+      @item.update(item_params)
       redirect_to item_path(@item)
     else
       render :edit
