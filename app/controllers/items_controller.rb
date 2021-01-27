@@ -27,10 +27,21 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  # prototypesコントローラーにeditアクションとupdateアクションを設定
+  # editアクションにインスタンス変数@itemを定義
+  # Pathパラメータで送信されるID値で、Itemモデルの特定のオブジェクトを取得するように記述し、それを@itemに代入
   def edit
+    @item = Item.find(params[:id])
   end
 
+  # データを更新する記述をし、更新されたときはそのitemの詳細ページに戻るような記述をした
+  # データが更新されなかったときは、編集ページに戻るようにrenderを用いて記述
   def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
   end
   
 
