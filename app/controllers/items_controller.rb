@@ -34,7 +34,6 @@ before_action :move_to_index, only:[ :edit, :update ]
     # @item = Item.find(params[:id])
   end
 
-  # prototypesコントローラーにeditアクションとupdateアクションを設定
   # editアクションにインスタンス変数@itemを定義
   # Pathパラメータで送信されるID値で、Itemモデルの特定のオブジェクトを取得するように記述し、それを@itemに代入
   def edit
@@ -52,9 +51,11 @@ before_action :move_to_index, only:[ :edit, :update ]
     end
   end
 
+  # destroyアクションに、商品を削除し、トップページに戻るような記述をした
   def destroy
+    @item.destroy
+    redirect_to root_path
   end
-  
 
   private
 
