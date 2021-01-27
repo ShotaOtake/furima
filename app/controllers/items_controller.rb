@@ -51,6 +51,9 @@ before_action :move_to_index, only:[ :edit, :update ]
       render :edit
     end
   end
+
+  def destroy
+  end
   
 
   private
