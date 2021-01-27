@@ -25,10 +25,11 @@
       </span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
+    <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で条件分岐 %>
     <% if user_signed_in?%>
-      <% if current_user == @item.user %>
-      <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
+      <% if current_user.id == @item.user_id %>
+      <%# 「編集する」ボタンから、編集ページに遷移するようにパスを設定した（パスはrails routesを用いて確認する） %>
+      <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
       <p class="or-text">or</p>
       <%= link_to "削除", "#", method: :delete, class:"item-destroy" %>
       <% else %>
