@@ -14,11 +14,21 @@ const pay = () => {
 
     // 生成したFormDataオブジェクトから、クレジットカードに関する情報を取得し、変数cardに代入するオブジェクトとして定義
     const card = {
-      number: formData.get("order[number]"),
-      cvc: formData.get("order[cvc]"),
-      exp_month: formData.get("order[exp_month]"),
-      exp_year: `20${formData.get("order[exp_year]")}`,
+      number: formData.get("pay_form[number]"),
+      cvc: formData.get("pay_form[cvc]"),
+      exp_month: formData.get("pay_form[exp_month]"),
+      exp_year: `20${formData.get("pay_form[exp_year]")}`,
     };
+
+    // カードの情報をトークン化
+    // 第一引数のcardは、PAY.JP側に送るカードの情報で直前で定義したカード情報のオブジェクト
+    // 第二引数のcallbackには、PAY.JP側からトークンが送付された後に実行する処理を記述
+    Payjp.createToken(card, (status, response) => {
+      if (status == 200) {
+        const token = response.id;
+        console.log(token)
+      }
+    });
   });
 };
 
