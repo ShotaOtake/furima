@@ -4,7 +4,8 @@ class PayForm
 
   # 保存したい複数のテーブルのカラム名全てを属性値として扱えるようにする
   # フォームで利用する全ての属性(つまり、保存したい各テーブルのカラム名全て)についてゲッターとセッターを定義することで、このFormオブジェクトのインスタンスを生成した際にform_withの引数として利用できるようになる
-  attr_accessor :postal_code, :prefecture_id, :city, :address, :building, :phone_number, :user_id, :item_id
+  # tokenの値追加
+  attr_accessor  :postal_code, :prefecture_id, :city, :address, :building, :phone_number, :user_id ,:item_id , :token
 
   # <<バリデーション>>
   with_options presence: true do
