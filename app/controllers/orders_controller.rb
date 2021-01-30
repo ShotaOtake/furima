@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    binding.pry
     @order = PayForm.new(order_params)
     if @order.valid?
       @order.save
@@ -20,6 +21,7 @@ class OrdersController < ApplicationController
 
   private
 
+  # tokenの情報が取得できるように編集
   def order_params
     params.require(:pay_form).permit(
       :postal_code,
@@ -28,7 +30,7 @@ class OrdersController < ApplicationController
       :address,
       :building,
       :phone_number
-      ).merge(user_id: current_user.id,item_id: params[:item_id])
+      ).merge(user_id: current_user.id,item_id: params[:item_id] , token: params[:token])
   end
 
 end
