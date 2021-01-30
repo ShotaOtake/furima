@@ -11,12 +11,7 @@ class OrdersController < ApplicationController
   def create
     @order = PayForm.new(order_params)
     if @order.valid?
-      Payjp.api_key = ENV['PAYJP_SECRET_KEY'] #環境変数と合わせましょう
-      Payjp::Charge.create(
-      amount: @item.price, # 決済額
-      card: order_params[:token], # カード情報
-      currency: 'jpy' # 通貨単位
-    )
+      pay_item
       @order.save
       redirect_to root_path
     else
@@ -40,4 +35,13 @@ class OrdersController < ApplicationController
       ).merge(user_id: current_user.id,item_id: params[:item_id] , token: params[:token])
   end
 
+  def pay_item 
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] #環境変数と合わせましょう
+    Payjp::Charge.create(
+      amount: @item.price, # 決済額
+      card: order_params[:token], # カード情報
+      currency: 'jpy' # 通貨単位
+    )
+  end
+  
 end
