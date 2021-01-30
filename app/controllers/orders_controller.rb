@@ -6,10 +6,17 @@ class OrdersController < ApplicationController
     @order = PayForm.new
   end
 
+  # Payjpクラスのapi_keyというインスタンスに秘密鍵を代入
+  # Payjp::Charge.createというクラスおよびクラスメソッドを使用
   def create
-    binding.pry
     @order = PayForm.new(order_params)
     if @order.valid?
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY'] #環境変数と合わせましょう
+      Payjp::Charge.create(
+      amount: @item.price, # 決済額
+      card: order_params[:token], # カード情報
+      currency: 'jpy' # 通貨単位
+    )
       @order.save
       redirect_to root_path
     else
