@@ -7,7 +7,18 @@ const pay = () => {
   form.addEventListener("submit", (e) => {
     // 通常のRuby on Railsにおけるフォーム送信処理はキャンセル(サーバーサイドへリクエストは送られない)
     e.preventDefault();
-    console.log("フォーム送信時にイベント発火")
+    
+    // "charge-form"というidでフォームの情報を取得し、それをFormDataオブジェクトとして生成
+    const formResult = document.getElementById("charge-form");
+    const formData = new FormData(formResult);
+
+    // 生成したFormDataオブジェクトから、クレジットカードに関する情報を取得し、変数cardに代入するオブジェクトとして定義
+    const card = {
+      number: formData.get("order[number]"),
+      cvc: formData.get("order[cvc]"),
+      exp_month: formData.get("order[exp_month]"),
+      exp_year: `20${formData.get("order[exp_year]")}`,
+    };
   });
 };
 
