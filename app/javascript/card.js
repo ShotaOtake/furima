@@ -1,4 +1,6 @@
 const pay = () => {
+  // 公開鍵を設定(Payjp.setPublicKeyというオブジェクトとメソッドはpayjp.jsの中で定義されているもの)
+  Payjp.setPublicKey("pk_test_******************");
   // ”charge-form”というidを指定しフォーム全体の要素を取得
   const form = document.getElementById("charge-form");
   // そのフォームが送信（submit）されたときにイベントが発火
