@@ -38,6 +38,10 @@ const pay = () => {
       document.getElementById("card-cvc").removeAttribute("name");
       document.getElementById("card-exp-month").removeAttribute("name");
       document.getElementById("card-exp-year").removeAttribute("name");
+
+      // フォームの情報をサーバーサイドに送信
+      // e.preventDefault();で通常のRuby on Railsにおけるフォーム送信処理はキャンセルされているためJavaScript側からフォームの送信処理を行う必要がある
+      document.getElementById("charge-form").submit();
     });
   });
 };
