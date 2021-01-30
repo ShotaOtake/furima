@@ -23,10 +23,14 @@ const pay = () => {
     // カードの情報をトークン化
     // 第一引数のcardは、PAY.JP側に送るカードの情報で直前で定義したカード情報のオブジェクト
     // 第二引数のcallbackには、PAY.JP側からトークンが送付された後に実行する処理を記述
+    // input要素を生成しフォームに加え、その値としてトークンをセット
+    // valueは実際に送られる値、nameはその値を示すプロパティ名
     Payjp.createToken(card, (status, response) => {
       if (status == 200) {
         const token = response.id;
-        console.log(token)
+        const renderDom = document.getElementById("charge-form");
+        const tokenObj = `<input value=${token} name='token'>`;
+        renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
     });
   });
