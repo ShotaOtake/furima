@@ -16,6 +16,7 @@ class PayForm
     validates :phone_number, format: { with: /\A[0-9]+\z/ }, length: { maximum: 11 }
     validates :user_id
     validates :item_id 
+    validates :token　#追加
   end
 
   def save
