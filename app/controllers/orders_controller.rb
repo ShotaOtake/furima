@@ -53,8 +53,9 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  # すでに購入されたものは再度購入できないようにする
   def move_to_index
-    return redirect_to root_path if current_user.id == @item.user.id
+    return redirect_to root_path if current_user.id == @item.user.id || @item.order.present? # 追加
   end
 
 end
