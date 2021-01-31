@@ -82,8 +82,9 @@ before_action :move_to_index, only:[ :edit, :update, :destroy ]
   end
 
   # @itemと紐づくユーザーが一致していない場合はトップページへ
+  # 購入されたものは、編集・削除できないようにする
   def move_to_index
-     return redirect_to root_path if current_user.id != @item.user.id
+    return redirect_to root_path if current_user.id != @item.user.id || @item.order.present? # 追記
   end
 
 end
