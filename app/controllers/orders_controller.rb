@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item 
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] #環境変数と合わせましょう
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] #環境変数と合わせましょう
     Payjp::Charge.create(
       amount: @item.price, # 決済額
       card: order_params[:token], # カード情報

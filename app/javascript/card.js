@@ -1,6 +1,8 @@
 const pay = () => {
+  // JavaScriptで環境変数を呼び込む
+  Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
   // 公開鍵を設定(Payjp.setPublicKeyというオブジェクトとメソッドはpayjp.jsの中で定義されているもの)
-  Payjp.setPublicKey("pk_test_******************");
+  // Payjp.setPublicKey("pk_test_******************");
   // ”charge-form”というidを指定しフォーム全体の要素を取得
   const form = document.getElementById("charge-form");
   // そのフォームが送信（submit）されたときにイベントが発火
@@ -41,6 +43,7 @@ const pay = () => {
 
       // フォームの情報をサーバーサイドに送信
       // e.preventDefault();で通常のRuby on Railsにおけるフォーム送信処理はキャンセルされているためJavaScript側からフォームの送信処理を行う必要がある
+      
       document.getElementById("charge-form").submit();
     });
   });
