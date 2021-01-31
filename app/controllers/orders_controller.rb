@@ -1,8 +1,13 @@
 class OrdersController < ApplicationController
+  # 未ログイン者をログインページへ遷移
+  before_action :authenticate_user!
+  before_action :set_item
+  # 出品者が購入できないようにするための処理
+  before_action :move_to_index
 
   # pay_form.rbからのインスタンス変数@orderを生成
   def index 
-    @item = Item.find(params[:item_id])
+    # @item = Item.find(params[:item_id])
     @order = PayForm.new
   end
 
@@ -15,7 +20,7 @@ class OrdersController < ApplicationController
       @order.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
+      # @item = Item.find(params[:item_id])
       render :index
     end
 
@@ -43,5 +48,13 @@ class OrdersController < ApplicationController
       currency: 'jpy' # 通貨単位
     )
   end
-  
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def move_to_index
+    return redirect_to root_path if current_user.id == @item.user.id
+  end
+
 end
